@@ -342,10 +342,12 @@
       position: absolute;
       top: 20px;
       left: 20px;
+      max-width: max-content;
       display: flex;
       align-items: center;
       gap: 8px;
       padding: 8px;
+      background: #1A1A1A;
       font-family: 'Inter', sans-serif;
       font-style: normal;
       font-weight: 400;
@@ -358,6 +360,31 @@
       height: 8px;
       background: #B19B7C;
       flex-shrink: 0;
+    }
+    .case-card-content {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .case-card-title {
+      font-family: 'Unbounded', sans-serif;
+      font-style: normal;
+      font-weight: 500;
+      font-size: clamp(20px, 3.4vw, 32px);
+      line-height: 1.125;
+      color: #FFFFFF;
+    }
+    .case-card-desc {
+      font-family: 'Inter', sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: clamp(14px, 1.6vw, 18px);
+      line-height: 1.556;
+      color: #F4F2EF;
     }
 
     /* ══════════════════════════════════════
@@ -897,11 +924,11 @@
       <p class="cases-head-desc">Каждый кейс — по модели:<br>Задача → Проблема → Решение → Процесс → Результат.</p>
     </div>
     <div class="cases-list">
-      <a class="case-card" href="https://www.figma.com/design/nKR6l10IgVtPt8yYeSbcep/%D0%9F%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE-%D0%B2%D0%B5%D0%B1-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80%D0%B0?node-id=12-24864&p=f&t=NGyVWDaE3eLCC593-0" target="_blank" rel="noopener"><img src="assets/casesphoto/Reach%20Out.jpg" alt="Reach Out — EdTech"><span class="case-tag"><span class="case-tag-square"></span>EdTech</span></a>
-      <a class="case-card" href="https://www.figma.com/design/nKR6l10IgVtPt8yYeSbcep/%D0%9F%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE-%D0%B2%D0%B5%D0%B1-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80%D0%B0?node-id=5-810&p=f&t=NGyVWDaE3eLCC593-0" target="_blank" rel="noopener"><img src="assets/casesphoto/ForexDrop.jpg" alt="Forex Drop"><span class="case-tag"><span class="case-tag-square"></span>Многостраничный сайт</span></a>
-      <a class="case-card" href="https://www.figma.com/design/nKR6l10IgVtPt8yYeSbcep/%D0%9F%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE-%D0%B2%D0%B5%D0%B1-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80%D0%B0?node-id=160-5878&p=f&t=NGyVWDaE3eLCC593-0" target="_blank" rel="noopener"><img src="assets/casesphoto/Formatron.jpg" alt="Форматрон"><span class="case-tag"><span class="case-tag-square"></span>Многостраничный сайт</span></a>
-      <a class="case-card" href="https://www.figma.com/design/nKR6l10IgVtPt8yYeSbcep/%D0%9F%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE-%D0%B2%D0%B5%D0%B1-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80%D0%B0?node-id=122-39934&p=f&t=NGyVWDaE3eLCC593-0" target="_blank" rel="noopener"><img src="assets/casesphoto/Temnote.net.jpg" alt="Темноте.нет"><span class="case-tag"><span class="case-tag-square"></span>E-commerce</span></a>
-      <a class="case-card" href="https://www.figma.com/design/nKR6l10IgVtPt8yYeSbcep/%D0%9F%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE-%D0%B2%D0%B5%D0%B1-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80%D0%B0?node-id=16-26650&p=f&t=NGyVWDaE3eLCC593-0" target="_blank" rel="noopener"><img src="assets/casesphoto/Unit.by.jpg" alt="UNITE.by"><span class="case-tag"><span class="case-tag-square"></span>Сайт-визитка</span></a>
+      <a class="case-card" href="https://www.figma.com/design/nKR6l10IgVtPt8yYeSbcep/%D0%9F%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE-%D0%B2%D0%B5%D0%B1-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80%D0%B0?node-id=12-24864&p=f&t=NGyVWDaE3eLCC593-0" target="_blank" rel="noopener"><img src="assets/casesphoto/Reach%20Out.jpg" alt="Reach Out — EdTech"><span class="case-tag"><span class="case-tag-square"></span>EdTech</span><div class="case-card-content"><h3 class="case-card-title">Reach Out</h3><p class="case-card-desc">UX/UI-дизайн лендинга и партнёрского кабинета для образовательной платформы в сфере криптовалют, блокчейна и реферальной программы.</p></div></a>
+      <a class="case-card" href="https://www.figma.com/design/nKR6l10IgVtPt8yYeSbcep/%D0%9F%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE-%D0%B2%D0%B5%D0%B1-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80%D0%B0?node-id=5-810&p=f&t=NGyVWDaE3eLCC593-0" target="_blank" rel="noopener"><img src="assets/casesphoto/ForexDrop.jpg" alt="Forex Drop"><span class="case-tag"><span class="case-tag-square"></span>Многостраничный сайт</span><div class="case-card-content"><h3 class="case-card-title">Forex Drop</h3><p class="case-card-desc">Многостраничный сайт для команды трейдеров‑разработчиков, которая занимается алгоритмическим трейдингом, обучением и разработкой торговых роботов для рынка Forex.</p></div></a>
+      <a class="case-card" href="https://www.figma.com/design/nKR6l10IgVtPt8yYeSbcep/%D0%9F%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE-%D0%B2%D0%B5%D0%B1-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80%D0%B0?node-id=160-5878&p=f&t=NGyVWDaE3eLCC593-0" target="_blank" rel="noopener"><img src="assets/casesphoto/Formatron.jpg" alt="Форматрон"><span class="case-tag"><span class="case-tag-square"></span>Многостраничный сайт</span><div class="case-card-content"><h3 class="case-card-title">Форматрон</h3><p class="case-card-desc">Корпоративный сайт литейного производства полного цикла: от 3D-оснастки до готовой детали</p></div></a>
+      <a class="case-card" href="https://www.figma.com/design/nKR6l10IgVtPt8yYeSbcep/%D0%9F%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE-%D0%B2%D0%B5%D0%B1-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80%D0%B0?node-id=122-39934&p=f&t=NGyVWDaE3eLCC593-0" target="_blank" rel="noopener"><img src="assets/casesphoto/Temnote.net.jpg" alt="Темноте.нет"><span class="case-tag"><span class="case-tag-square"></span>E-commerce</span><div class="case-card-content"><h3 class="case-card-title">Темноте.нет</h3><p class="case-card-desc">Полный цикл e-commerce: каталог, карточка товара, корзина, оформление заказа, услуги</p></div></a>
+      <a class="case-card" href="https://www.figma.com/design/nKR6l10IgVtPt8yYeSbcep/%D0%9F%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE-%D0%B2%D0%B5%D0%B1-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80%D0%B0?node-id=16-26650&p=f&t=NGyVWDaE3eLCC593-0" target="_blank" rel="noopener"><img src="assets/casesphoto/Unit.by.jpg" alt="UNITE.by"><span class="case-tag"><span class="case-tag-square"></span>Сайт-визитка</span><div class="case-card-content"><h3 class="case-card-title">UNITE.by</h3><p class="case-card-desc">Лаконичная и представительная визитка сайт. Минимум слов — максимум впечатления.</p></div></a>
     </div>
   </div>
 </section>
