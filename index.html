@@ -276,12 +276,8 @@
     ══════════════════════════════════════ */
     #cases {
       width: 100%;
-      min-height: 100vh;
       background: var(--dark);
       padding: var(--sp) 0;
-      display: flex;
-      align-items: center;
-      box-sizing: border-box;
     }
 
     .cases-head {
@@ -1152,7 +1148,11 @@
           end: function () { return '+=' + (n - 1) * window.innerHeight * 0.7; },
           pin: true,
           scrub: 0.4,
-          invalidateOnRefresh: true
+          invalidateOnRefresh: true,
+          onEnter: function () { document.body.style.background = 'var(--dark)'; },
+          onEnterBack: function () { document.body.style.background = 'var(--dark)'; },
+          onLeave: function () { document.body.style.background = ''; },
+          onLeaveBack: function () { document.body.style.background = ''; }
         }
       });
 
@@ -1162,6 +1162,8 @@
         tl.to(card, { autoAlpha: 0, ease: 'none' }, i)
           .to(next, { y: '0%', ease: 'none' }, i);
       });
+
+      window.addEventListener('load', function () { ScrollTrigger.refresh(); });
     }
   }
 </script>
