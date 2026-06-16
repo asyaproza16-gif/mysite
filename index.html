@@ -278,6 +278,13 @@
       padding: var(--sp) 0;
     }
 
+    /* GSAP pin-spacer оборачивает #cases на время скролл-анимации и резервирует
+       место под её длительность — если эта обёртка выше самого блока, под ним
+       проглядывал бы фон страницы. Закрашиваем обёртку тем же тёмным цветом. */
+    .pin-spacer {
+      background: var(--dark);
+    }
+
     .cases-head {
       display: flex;
       align-items: flex-start;
@@ -1167,11 +1174,7 @@
           end: function () { return '+=' + (n - 1) * window.innerHeight * 0.7; },
           pin: true,
           scrub: 0.4,
-          invalidateOnRefresh: true,
-          onEnter: function () { document.body.style.background = 'var(--dark)'; },
-          onEnterBack: function () { document.body.style.background = 'var(--dark)'; },
-          onLeave: function () { document.body.style.background = ''; },
-          onLeaveBack: function () { document.body.style.background = ''; }
+          invalidateOnRefresh: true
         }
       });
 
