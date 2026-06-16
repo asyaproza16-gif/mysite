@@ -276,8 +276,12 @@
     ══════════════════════════════════════ */
     #cases {
       width: 100%;
+      min-height: 100vh;
       background: var(--dark);
       padding: var(--sp) 0;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
     }
 
     .cases-head {
@@ -1147,7 +1151,7 @@
           start: 'top top',
           end: function () { return '+=' + (n - 1) * window.innerHeight * 0.7; },
           pin: true,
-          scrub: true,
+          scrub: 0.4,
           invalidateOnRefresh: true
         }
       });
@@ -1155,12 +1159,8 @@
       caseCards.forEach(function (card, i) {
         if (i === n - 1) return;
         var next = caseCards[i + 1];
-        tl.fromTo(card,
-          { clipPath: 'inset(0% 0% 0% 0% round 0px)', autoAlpha: 1 },
-          { clipPath: 'inset(10% 10% 30% 10% round 0px)', autoAlpha: .2, ease: 'none' }
-        )
-        .to(next, { y: '0%', ease: 'none' }, '<')
-        .set(card, { autoAlpha: 0 });
+        tl.to(card, { autoAlpha: 0, ease: 'none' }, i)
+          .to(next, { y: '0%', ease: 'none' }, i);
       });
     }
   }
