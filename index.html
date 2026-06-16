@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Анастасия Прозапас — web-дизайнер</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Unbounded:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:  #F9F5ED;
+      --dark:   #1A1A1A;
+      --text:   #4A4845;
+      --muted:  #8A8480;
+      --accent: #B19B7C;
+      --white:  #FFFFFF;
+      --border: rgba(74,72,69,0.12);
+
+      /* Padding scales with viewport: 20px at 320px → 80px at 1440px */
+      --pad: clamp(20px, 5.56vw, 80px);
+      --sp: 80px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+    }
+
+    /* ────────────────────────────────────────
+       UNIVERSAL CONTAINER
+       Центрирует контент, ограничивает ширину,
+       масштабирует боковые отступы.
+    ──────────────────────────────────────── */
+    .container {
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding-left:  var(--pad);
+      padding-right: var(--pad);
+    }
+
+    /* ══════════════════════════════════════
+       HERO — полная ширина, 50/50
+    ══════════════════════════════════════ */
+    #hero {
+      width: 100%;
+      min-height: 700px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .hero-left {
+      overflow: hidden;
+      min-height: 700px;
+      background: var(--accent);
+    }
+    .hero-left img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .hero-right {
+      background: var(--cream);
+      display: flex;
+      flex-direction: column;
+      padding: 32px var(--pad) 0 clamp(16px, 2.1vw, 30px);
+    }
+
+    /* NAV */
+    .hero-nav {
+      display: flex;
+      gap: clamp(20px, 3.3vw, 48px);
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .hero-nav a {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      transition: opacity .2s;
+    }
+    .hero-nav a:hover { opacity: .5; }
+
+    /* Burger (виден только ≤1380px, см. медиа-запрос ниже) */
+    .burger-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 32px;
+      height: 32px;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .burger-btn span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform .25s, opacity .25s;
+    }
+    .burger-btn.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger-btn.is-open span:nth-child(2) { opacity: 0; }
+    .burger-btn.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Выезжающее меню справа + затемнение фона */
+    .mobile-menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 26, 26, .8); /* #1A1A1A 80% */
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .3s ease;
+      z-index: 1000;
+    }
+    .mobile-menu-overlay.is-open { opacity: 1; visibility: visible; }
+
+    .mobile-menu-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: min(320px, 80vw);
+      background: var(--cream);
+      z-index: 1001;
+      display: flex;
+      flex-direction: column;
+      padding: 24px clamp(20px, 5vw, 40px);
+      transform: translateX(100%);
+      transition: transform .3s ease;
+      box-shadow: -8px 0 32px rgba(0,0,0,.15);
+    }
+    .mobile-menu-panel.is-open { transform: translateX(0); }
+
+    .mobile-menu-close {
+      align-self: flex-end;
+      background: none;
+      border: none;
+      padding: 8px;
+      margin: 0 -8px 24px 0;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .mobile-menu-nav {
+      display: flex;
+      flex-direction: column;
+    }
+    .mobile-menu-nav a {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 18px;
+      font-weight: 500;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      transition: opacity .2s;
+    }
+    .mobile-menu-nav a:hover { opacity: .6; }
+
+    /* Hero body */
+    .hero-body {
+      margin-top: clamp(40px, 9vw, 128px);
+    }
+    /* Label с квадратом */
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 400;
+      color: #7A6A55;
+      margin-bottom: 10px;
+    }
+    .hero-label-sq {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #B19B7C;
+      flex-shrink: 0;
+    }
+
+    .hero-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(24px, 3.2vw, 46px);
+      font-weight: 500;
+      line-height: 1.15;
+      color: var(--dark);
+      letter-spacing: -.01em;
+      margin-bottom: 16px;
+    }
+    .hero-sub {
+      font-size: clamp(15px, 1.25vw, 18px);
+      line-height: 1.55;
+      color: var(--muted);
+      max-width: 443px;        /* фиксирует две строки как в макете */
+      margin-bottom: clamp(20px, 2.78vw, 40px); /* 40px на десктопе */
+    }
+    /* Кнопка: без скруглений, как в макете */
+    .btn-tg {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--dark);
+      color: var(--white);
+      padding: 20px 16px;
+      border-radius: 0;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      width: fit-content;
+      transition: opacity .2s;
+    }
+    .btn-tg:hover { opacity: .8; }
+
+    /* ══════════════════════════════════════
+       TICKER
+    ══════════════════════════════════════ */
+    #ticker {
+      width: 100%;
+      height: 58px;
+      background: var(--cream);
+      border-top:    1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    .ticker-track {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      animation: ticker-scroll 28s linear infinite;
+      will-change: transform;
+    }
+    .t-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 20px;
+      padding-right: 20px;
+    }
+    .t-label {
+      font-size: 15px;
+      color: var(--text);
+    }
+    .t-dot {
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      background: var(--muted);
+      flex-shrink: 0;
+    }
+    .tool-names .t-dot { margin: 0 10px; }
+
+    @keyframes ticker-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-25%); }
+    }
+
+    /* ══════════════════════════════════════
+       CASES
+    ══════════════════════════════════════ */
+    #cases {
+      width: 100%;
+      background: var(--dark);
+      padding: var(--sp) 0;
+    }
+
+    .cases-head {
+      display: flex;
+      align-items: flex-start;
+      gap: clamp(16px, 2.2vw, 31px);
+      margin-bottom: clamp(32px, 3.6vw, 52px);
+    }
+    .cases-head-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(22px, 2.8vw, 40px);
+      font-weight: 500;
+      color: var(--white);
+      letter-spacing: -.01em;
+      flex: 0 0 clamp(120px, 43.1vw, 620px);
+    }
+    .cases-head-desc {
+      font-size: clamp(13px, 1.05vw, 15px);
+      color: #F4F2EF;
+      line-height: 1.6;
+      padding-top: 6px;
+    }
+
+    .cases-list {
+      position: relative;
+      width: clamp(280px, 52.8vw, 760px);
+      aspect-ratio: 760 / 520;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .case-card {
+      width: clamp(280px, 52.8vw, 760px);
+      aspect-ratio: 760 / 520;
+      border-radius: 0;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform .25s;
+      flex-shrink: 0;
+    }
+    .case-card:hover { transform: scale(1.015); }
+    /* Стек карточек для анимации смены — позиционирование, внешний вид карточек не меняется */
+    .cases-list .case-card {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .cases-list .case-card:not(:first-child) {
+      transform: translateY(100%);
+    }
+    .case-card img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* ══════════════════════════════════════
+       ABOUT
+    ══════════════════════════════════════ */
+    #about {
+      width: 100%;
+      background: var(--cream);
+    }
+
+    /* Row 1 — «Обо мне» + два текста */
+    .about-row1 {
+      padding-top:    var(--sp);
+      padding-bottom: 0;
+      display: flex;
+      align-items: flex-start;
+      gap: clamp(24px, 8.9vw, 128px);
+    }
+    .about-heading {
+      flex: 0 0 clamp(140px, 36.3vw, 522px);
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(22px, 2.8vw, 40px);
+      font-weight: 500;
+      letter-spacing: -.01em;
+      line-height: 1.15;
+      color: var(--dark);
+      padding-top: 4px;
+    }
+    .about-texts {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(20px, 2.8vw, 40px);
+    }
+    .about-p {
+      font-size: clamp(14px, 1.25vw, 18px);
+      line-height: 1.65;
+      color: var(--text);
+    }
+
+    /* Row 2 — образование + фото */
+    .about-row2 {
+      padding-top:    clamp(24px, 2.8vw, 40px);
+      padding-bottom: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(20px, 2.8vw, 40px);
+      align-items: start;
+    }
+
+    .edu-block { display: flex; flex-direction: column; }
+
+    .edu-section {
+      padding: 0 0 clamp(16px, 1.95vw, 28px) 0;
+    }
+    .edu-section-title {
+      font-size: clamp(14px, 1.25vw, 18px);
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .edu-text {
+      font-size: clamp(14px, 1.25vw, 18px);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .edu-date { color: var(--accent); }
+
+    .portfolio-link {
+      border-top: 1px solid var(--border);
+      padding-top: clamp(16px, 1.95vw, 28px);
+    }
+    .portfolio-link-title {
+      font-size: clamp(14px, 1.25vw, 18px);
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .portfolio-link a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: clamp(14px, 1.25vw, 18px);
+      color: var(--accent);
+      text-decoration: none;
+      transition: opacity .2s;
+    }
+    .portfolio-link a:hover { opacity: .7; }
+
+    .about-photo-wrap {
+      border-radius: 0;
+      overflow: hidden;
+      aspect-ratio: 630 / 322;
+    }
+    .about-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ══════════════════════════════════════
+       AI TOOLS
+    ══════════════════════════════════════ */
+    #tools {
+      width: 100%;
+      background: var(--cream);
+    }
+
+    .tools-inner {
+      padding-top:    var(--sp);
+      padding-bottom: 0;
+      display: flex;
+      align-items: flex-start;
+      gap: clamp(24px, 8.9vw, 128px);
+    }
+    .tools-title-col {
+      flex: 0 0 clamp(140px, 36.3vw, 522px);
+    }
+    .tools-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(22px, 2.8vw, 40px);
+      font-weight: 500;
+      letter-spacing: -.01em;
+      line-height: 1.2;
+      color: var(--dark);
+      position: sticky;
+      top: 40px;
+    }
+    .tools-right { flex: 1; }
+    .tools-subtitle {
+      font-size: clamp(14px, 1.25vw, 18px);
+      line-height: 1.65;
+      color: var(--text);
+    }
+    .tool-rows { margin-top: clamp(20px, 2.5vw, 36px); }
+
+    .tool-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-top: 1px solid var(--border);
+      padding: clamp(16px, 1.95vw, 28px) 0;
+    }
+    .tool-row:last-child { border-bottom: 1px solid var(--border); }
+
+    .tool-cat {
+      font-size: clamp(14px, 1.25vw, 18px);
+      font-weight: 600;
+      color: var(--text);
+    }
+    .tool-names {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+    .tool-name {
+      font-size: clamp(14px, 1.25vw, 18px);
+      color: var(--muted);
+    }
+
+    /* ══════════════════════════════════════
+       EXPERIENCE
+    ══════════════════════════════════════ */
+    #experience {
+      width: 100%;
+      background: var(--cream);
+    }
+
+    .exp-inner {
+      padding-top:    var(--sp);
+      padding-bottom: var(--sp);
+      display: flex;
+      align-items: flex-start;
+      gap: clamp(24px, 8.9vw, 128px);
+    }
+    .exp-title-col {
+      flex: 0 0 clamp(140px, 36.3vw, 522px);
+    }
+    .exp-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(22px, 2.8vw, 40px);
+      font-weight: 500;
+      letter-spacing: -.01em;
+      line-height: 1.2;
+      color: var(--dark);
+      position: sticky;
+      top: 40px;
+    }
+    .exp-right { flex: 1; }
+
+    .exp-item {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid rgba(26,26,26,.1);
+      padding: clamp(16px, 1.95vw, 20px) 0;
+    }
+    .exp-item:last-child { border-bottom: 1px solid rgba(26,26,26,.1); }
+
+    .exp-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      width: 100%;
+      background: none;
+      border: none;
+      appearance: none;
+      padding: 0;
+      margin: 0;
+      font: inherit;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+    .exp-logo {
+      width: clamp(48px, 4.7vw, 68px);
+      height: clamp(48px, 4.7vw, 68px);
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      display: block;
+    }
+    .exp-meta {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .exp-company {
+      font-size: clamp(14px, 1.25vw, 18px);
+      font-weight: 600;
+      line-height: 1.55;
+      color: var(--text);
+    }
+    .exp-date {
+      font-size: clamp(14px, 1.25vw, 18px);
+      line-height: 1.55;
+      color: var(--accent);
+    }
+    .exp-chevron {
+      flex-shrink: 0;
+      align-self: center;
+      color: var(--muted);
+      transition: transform .25s;
+    }
+    .exp-item.is-open .exp-chevron { transform: rotate(180deg); }
+
+    .exp-desc-wrap {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows .3s ease;
+    }
+    .exp-item.is-open .exp-desc-wrap { grid-template-rows: 1fr; }
+    .exp-desc {
+      overflow: hidden;
+      font-size: clamp(14px, 1.25vw, 18px);
+      line-height: 1.55;
+      color: var(--text);
+      padding-top: 12px;
+    }
+
+    /* ══════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════ */
+    footer {
+      width: 100%;
+      background: var(--dark);
+      padding: var(--sp) var(--pad);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      min-height: clamp(160px, 19.2vw, 276px);
+    }
+    .footer-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(20px, 2.8vw, 40px);
+      font-weight: 500;
+      letter-spacing: -.01em;
+      color: var(--white);
+      text-align: center;
+    }
+    .footer-contacts {
+      display: flex;
+      align-items: center;
+      gap: clamp(20px, 2.8vw, 40px);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .footer-contact {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: clamp(13px, 1.1vw, 16px);
+      color: var(--white);
+      text-decoration: none;
+      transition: opacity .2s;
+    }
+    .footer-contact:hover { opacity: .7; }
+
+    /* ══════════════════════════════════════
+       BURGER MENU  ≤ 1380px
+       (пункты меню начинают наезжать друг
+       на друга в двухколоночном hero)
+    ══════════════════════════════════════ */
+    @media (max-width: 1380px) {
+      .hero-nav { display: none; }
+      .burger-btn { display: flex; align-self: flex-end; }
+
+      /* Текст и кнопка занимают всю доступную ширину колонки */
+      .hero-sub { max-width: none; }
+    }
+
+    /* ══════════════════════════════════════
+       TABLET  ≤ 1024px
+    ══════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      :root { --sp: 60px; }
+
+      /* Hero: 1 колонка, текст сверху, фото снизу */
+      #hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .hero-right {
+        order: 1;
+        padding: 32px var(--pad) 36px;
+      }
+      .hero-left {
+        order: 2;
+        min-height: 0;
+        height: 65vw;
+        max-height: 560px;
+      }
+      /* About row1: тексты в одну колонку */
+      .about-texts {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      /* Tools: уже вертикальный по умолчанию */
+      /* Experience: уже вертикальный по умолчанию */
+    }
+
+    /* ══════════════════════════════════════
+       MOBILE  ≤ 768px
+    ══════════════════════════════════════ */
+    @media (max-width: 768px) {
+
+      /* ── Hero: текст сверху, фото снизу ── */
+      .hero-left {
+        height: 85vw;
+        max-height: 480px;
+      }
+      .hero-right {
+        padding: 28px var(--pad) 32px;
+      }
+
+      .hero-body {
+        margin-top: 28px;
+        text-align: left;
+      }
+
+      .hero-stats {
+        margin-top: 32px;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      /* ── Ticker ── */
+      #ticker { height: 48px; }
+
+      /* ── Cases ── */
+      .cases-head {
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 28px;
+      }
+      .cases-head-title { flex: none; }
+
+      .case-card {
+        width: 100%;
+      }
+      .cases-list { width: 100%; }
+
+      /* ── About row1: заголовок + тексты в стопку ── */
+      .about-row1 {
+        flex-direction: column;
+        gap: 24px;
+      }
+      .about-heading { flex: none; }
+      .about-texts {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      /* ── About row2: одна колонка ── */
+      .about-row2 {
+        grid-template-columns: 1fr;
+      }
+      .about-photo-wrap { order: -1; }
+
+      /* ── Tools: стопка ── */
+      .tools-inner {
+        flex-direction: column;
+        gap: 28px;
+      }
+      .tools-title-col { flex: none; }
+      .tools-title { position: static; }
+
+      .tool-names .t-dot:first-child { margin-left: 0; }
+
+      /* ── Experience: стопка ── */
+      .exp-inner {
+        flex-direction: column;
+        gap: 28px;
+      }
+      .exp-title-col { flex: none; }
+      .exp-title { position: static; }
+
+      /* ── Footer ── */
+      footer { gap: 16px; }
+      .footer-contacts {
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+
+    /* ══════════════════════════════════════
+       SMALL MOBILE  ≤ 480px
+    ══════════════════════════════════════ */
+    @media (max-width: 480px) {
+
+      .hero-left {
+        height: 90vw;
+        max-height: 480px;
+      }
+
+      /* Stat cards: в стопку */
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+
+      /* Cases head: убираем описание */
+      .cases-head-desc { display: none; }
+
+      /* About texts: одна колонка (уже есть выше) */
+
+      /* Tools rows: инструменты переносятся */
+      .tool-names {
+        flex-wrap: wrap;
+        gap: 4px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<section id="hero">
+  <div class="hero-left">
+    <img src="assets/hero_photo.png" alt="Анастасия Прозапас">
+  </div>
+
+  <div class="hero-right">
+    <nav class="hero-nav">
+      <a href="#cases">Кейсы</a>
+      <a href="#about">Обо мне</a>
+      <a href="#tools">Инструменты</a>
+      <a href="#experience">Опыт работы</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+    <button class="burger-btn" id="burgerBtn" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileMenuPanel">
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="hero-body">
+      <p class="hero-label"><span class="hero-label-sq"></span>web-дизайнер Анастасия Прозапас</p>
+      <h1 class="hero-title">Дизайн с логикой<br>и характером</h1>
+      <p class="hero-sub">Создаю сайты, которые понятны пользователям и приносят результат бизнесу</p>
+      <a href="https://t.me/asya_proza" class="btn-tg" target="_blank">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 2L11 13"/>
+          <path d="M22 2L15 22l-4-9-9-4 20-7z"/>
+        </svg>
+        Написать в Telegram
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════ TICKER ════════════════════ -->
+<section id="ticker">
+  <div class="ticker-track">
+    <span class="t-item"><span class="t-label">Chat GPT</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Claude.ai</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Syntx.ai</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Adobe Photoshop</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Figma</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Tilda</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Figma MCP</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Google Stitch</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Chat GPT</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Claude.ai</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Syntx.ai</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Adobe Photoshop</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Figma</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Tilda</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Figma MCP</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Google Stitch</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Chat GPT</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Claude.ai</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Syntx.ai</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Adobe Photoshop</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Figma</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Tilda</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Figma MCP</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Google Stitch</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Chat GPT</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Claude.ai</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Syntx.ai</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Adobe Photoshop</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Figma</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Tilda</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Figma MCP</span><span class="t-dot"></span></span>
+    <span class="t-item"><span class="t-label">Google Stitch</span><span class="t-dot"></span></span>
+  </div>
+</section>
+
+<!-- ════════════════════ CASES ════════════════════ -->
+<section id="cases">
+  <div class="container">
+    <div class="cases-head">
+      <h2 class="cases-head-title">Кейсы</h2>
+      <p class="cases-head-desc">Каждый кейс — по модели:<br>Задача → Проблема → Решение → Процесс → Результат.</p>
+    </div>
+    <div class="cases-list">
+      <a class="case-card" href="https://www.figma.com/design/nKR6l10IgVtPt8yYeSbcep/%D0%9F%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE-%D0%B2%D0%B5%D0%B1-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80%D0%B0?node-id=12-24864&p=f&t=NGyVWDaE3eLCC593-0" target="_blank" rel="noopener"><img src="assets/case1_reach_out.png" alt="Reach Out — EdTech"></a>
+      <a class="case-card" href="https://www.figma.com/design/nKR6l10IgVtPt8yYeSbcep/%D0%9F%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE-%D0%B2%D0%B5%D0%B1-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80%D0%B0?node-id=5-810&p=f&t=NGyVWDaE3eLCC593-0" target="_blank" rel="noopener"><img src="assets/case2_forex.png" alt="Forex Drop"></a>
+      <a class="case-card" href="https://www.figma.com/design/nKR6l10IgVtPt8yYeSbcep/%D0%9F%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE-%D0%B2%D0%B5%D0%B1-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80%D0%B0?node-id=160-5878&p=f&t=NGyVWDaE3eLCC593-0" target="_blank" rel="noopener"><img src="assets/case3_formtron.png" alt="Форматрон"></a>
+      <a class="case-card" href="https://www.figma.com/design/nKR6l10IgVtPt8yYeSbcep/%D0%9F%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE-%D0%B2%D0%B5%D0%B1-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80%D0%B0?node-id=122-39934&p=f&t=NGyVWDaE3eLCC593-0" target="_blank" rel="noopener"><img src="assets/case4_temnote.png" alt="Темноте.нет"></a>
+      <a class="case-card" href="https://www.figma.com/design/nKR6l10IgVtPt8yYeSbcep/%D0%9F%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE-%D0%B2%D0%B5%D0%B1-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80%D0%B0?node-id=16-26650&p=f&t=NGyVWDaE3eLCC593-0" target="_blank" rel="noopener"><img src="assets/case5_unite.png" alt="UNITE.by"></a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ ABOUT ════════════════════ -->
+<section id="about">
+  <div class="container about-row1">
+    <h2 class="about-heading">Обо мне</h2>
+    <div class="about-texts">
+      <p class="about-p">Меня зовут Анастасия. Я — web-дизайнер с опытом коммерческой разработки сайтов более 5 лет. Работала в дизайн-студиях и агентствах, создавая лендинги, интернет-магазины, корпоративные сайты для разных сфер бизнеса.</p>
+      <p class="about-p">Сочетаю классические UX-подходы с AI-инструментами, что позволяет быстрее проводить исследования, находить решения и запускать проекты без потери качества.</p>
+    </div>
+  </div>
+
+  <div class="container about-row2">
+    <div class="edu-block">
+      <div class="edu-section">
+        <div class="edu-section-title">Образование и курсы</div>
+        <div class="edu-text">«Digital-design. Принципы дизайна в digital-среде», Krona Studio&amp;School<br><span class="edu-date">09.2022–01.2023 (4,5 месяцев)</span></div>
+      </div>
+      <div class="portfolio-link">
+        <div class="portfolio-link-title">Посмотреть на подход и качество работ</div>
+        <a href="https://www.figma.com/design/fprlCNQ8OrnGppR9KDwp3r/" target="_blank">
+          Figma
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 2H18V7" stroke="currentColor" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 11L17 2" stroke="currentColor" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15 11.067V16.267C15 16.726 14.817 17.167 14.492 17.492C14.167 17.817 13.726 18 13.267 18H3.733C3.274 18 2.833 17.817 2.508 17.492C2.183 17.167 2 16.726 2 16.267V6.733C2 6.274 2.183 5.833 2.508 5.508C2.833 5.183 3.274 5 3.733 5H8.933" stroke="currentColor" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="about-photo-wrap">
+      <img src="assets/about_photo.png" alt="Анастасия за работой">
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ AI TOOLS ════════════════════ -->
+<section id="tools">
+  <div class="container tools-inner">
+    <div class="tools-title-col">
+      <h2 class="tools-title">AI-инструменты, которые ускоряют мою работу</h2>
+    </div>
+    <div class="tools-right">
+      <p class="tools-subtitle">Использую AI и профессиональные дизайн-инструменты для исследований, прототипирования, создания контента и разработки сайтов. Это позволяет быстрее находить решения, проверять гипотезы и запускать проекты без потери качества.</p>
+      <div class="tool-rows">
+        <div class="tool-row">
+          <span class="tool-cat">Исследование и аналитика</span>
+          <div class="tool-names">
+            <span class="t-dot"></span>
+            <span class="tool-name">ChatGPT</span>
+            <span class="t-dot"></span>
+            <span class="tool-name">Claude.ai</span>
+            <span class="t-dot"></span>
+            <span class="tool-name">Syntx.ai</span>
+          </div>
+        </div>
+        <div class="tool-row">
+          <span class="tool-cat">Прототипирование</span>
+          <div class="tool-names">
+            <span class="t-dot"></span>
+            <span class="tool-name">Figma</span>
+            <span class="t-dot"></span>
+            <span class="tool-name">Claude.ai</span>
+            <span class="t-dot"></span>
+            <span class="tool-name">Google Stitch</span>
+            <span class="t-dot"></span>
+            <span class="tool-name">Figma MCP</span>
+          </div>
+        </div>
+        <div class="tool-row">
+          <span class="tool-cat">Дизайн интерфейсов</span>
+          <div class="tool-names">
+            <span class="t-dot"></span>
+            <span class="tool-name">Figma</span>
+            <span class="t-dot"></span>
+            <span class="tool-name">Figma Make</span>
+          </div>
+        </div>
+        <div class="tool-row">
+          <span class="tool-cat">Создание контента</span>
+          <div class="tool-names">
+            <span class="t-dot"></span>
+            <span class="tool-name">ChatGPT</span>
+            <span class="t-dot"></span>
+            <span class="tool-name">Claude.ai</span>
+            <span class="t-dot"></span>
+            <span class="tool-name">Syntx.ai</span>
+            <span class="t-dot"></span>
+            <span class="tool-name">Adobe Photoshop</span>
+          </div>
+        </div>
+        <div class="tool-row">
+          <span class="tool-cat">Разработка сайтов</span>
+          <div class="tool-names">
+            <span class="t-dot"></span>
+            <span class="tool-name">Tilda</span>
+            <span class="t-dot"></span>
+            <span class="tool-name">Claude.ai</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ EXPERIENCE ════════════════════ -->
+<section id="experience">
+  <div class="container exp-inner">
+    <div class="exp-title-col">
+      <h2 class="exp-title">Опыт работы</h2>
+    </div>
+    <div class="exp-right">
+      <div class="exp-item">
+        <button class="exp-head" type="button" aria-expanded="false" aria-controls="exp-desc-1">
+          <img class="exp-logo" src="assets/exp_logo1.png" alt="Сплав">
+          <div class="exp-meta">
+            <span class="exp-company">Сплав</span>
+            <span class="exp-date">Февраль 2024 — Май 2026 (2 года и 4 месяца)</span>
+          </div>
+          <svg class="exp-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="exp-desc-wrap" id="exp-desc-1">
+          <p class="exp-desc">Создание кликабельных прототипов и дизайн макетов для лендингов, корпоративных сайтов, интернет-магазинов по готовым техническим заданиям. Разработка дизайн страниц интернет-магазина с учетом специфики: каталог товаров, навигация (фильтры, категории, поиск), карточка товара, корзина, оформление заказа, личный кабинет, отслеживание заказа; стилизация, работа с графикой, проработка юзабилити, проектирование интерфейса, UI-kit. Верстка в Tilda (по необходимости).</p>
+        </div>
+      </div>
+      <div class="exp-item">
+        <button class="exp-head" type="button" aria-expanded="false" aria-controls="exp-desc-2">
+          <img class="exp-logo" src="assets/exp_logo2.png" alt="BMV.by">
+          <div class="exp-meta">
+            <span class="exp-company">BMV.by</span>
+            <span class="exp-date">Август 2024 — Октябрь 2025 (1 год и 3 месяца)</span>
+          </div>
+          <svg class="exp-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="exp-desc-wrap" id="exp-desc-2">
+          <p class="exp-desc">Разработка кликабельных/статичных прототипов и дизайн-макетов лендингов, корпоративных сайтов, интернет-магазинов, редизайн сайтов, разработка логотипов (минималистичные, простые), дизайн-макетов электронных писем</p>
+        </div>
+      </div>
+      <div class="exp-item">
+        <button class="exp-head" type="button" aria-expanded="false" aria-controls="exp-desc-3">
+          <img class="exp-logo" src="assets/exp_logo3.png" alt="Стратегия Маркетинга">
+          <div class="exp-meta">
+            <span class="exp-company">Стратегия Маркетинга</span>
+            <span class="exp-date">Октябрь 2023 — Март 2024 (6 месяцев)</span>
+          </div>
+          <svg class="exp-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="exp-desc-wrap" id="exp-desc-3">
+          <p class="exp-desc">Основные — это разработка дизайна и редизайн сайтов по техническим заданиям (лендинги, многостраничники, интернет-магазины). Также редизайн сайтов, разработка сайтов и квизов на Tilda. Вторичные — дизайн SMM-макетов, креативов для таргетологов, презентационных материалов, а также различные задачи связанные с дизайном.</p>
+        </div>
+      </div>
+      <div class="exp-item">
+        <button class="exp-head" type="button" aria-expanded="false" aria-controls="exp-desc-4">
+          <img class="exp-logo" src="assets/exp_logo4.png" alt="Chrome – агентство комплексных решений">
+          <div class="exp-meta">
+            <span class="exp-company">Chrome – агентство комплексных решений</span>
+            <span class="exp-date">Май 2020 — Июнь 2023 (3 года и 2 месяца)</span>
+          </div>
+          <svg class="exp-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="exp-desc-wrap" id="exp-desc-4">
+          <p class="exp-desc">Основные — это разработка кликабельных прототипов и дизайна/редизайн сайтов по техническим заданиям (лендинги, многостраничники, интернет-магазины) и всё, что с этим связано. Также редизайн сайтов, разработка сайтов и квизов на Tilda. Вторичные — дизайн презентационных материалов, а также различные задачи связанные с дизайном и версткой сайтов на Tilda.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ FOOTER ════════════════════ -->
+<footer id="contact">
+  <h2 class="footer-title">Открыта к сотрудничеству</h2>
+  <div class="footer-contacts">
+    <a href="https://t.me/asya_proza" class="footer-contact" target="_blank">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 2L11 13"/>
+        <path d="M22 2L15 22l-4-9-9-4 20-7z"/>
+      </svg>
+      @asya_proza
+    </a>
+    <a href="mailto:asyaproza16@gmail.com" class="footer-contact">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="4" width="20" height="16" rx="2"/>
+        <path d="M2 7l10 7 10-7"/>
+      </svg>
+      asyaproza16@gmail.com
+    </a>
+  </div>
+</footer>
+
+<!-- ════════════════ MOBILE MENU (burger ≤1380px) ════════════════ -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+<aside class="mobile-menu-panel" id="mobileMenuPanel" aria-hidden="true">
+  <button class="mobile-menu-close" id="mobileMenuClose" type="button" aria-label="Закрыть меню">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <nav class="mobile-menu-nav">
+    <a href="#cases">Кейсы</a>
+    <a href="#about">Обо мне</a>
+    <a href="#tools">Инструменты</a>
+    <a href="#experience">Опыт работы</a>
+    <a href="#contact">Контакты</a>
+  </nav>
+</aside>
+
+<script>
+  document.querySelectorAll('.exp-head').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var item = btn.closest('.exp-item');
+      var isOpen = item.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', String(isOpen));
+    });
+  });
+</script>
+
+<script>
+  (function () {
+    var burgerBtn = document.getElementById('burgerBtn');
+    var overlay = document.getElementById('mobileMenuOverlay');
+    var panel = document.getElementById('mobileMenuPanel');
+    var closeBtn = document.getElementById('mobileMenuClose');
+    if (!burgerBtn || !overlay || !panel || !closeBtn) return;
+
+    function openMenu() {
+      overlay.classList.add('is-open');
+      panel.classList.add('is-open');
+      burgerBtn.classList.add('is-open');
+      burgerBtn.setAttribute('aria-expanded', 'true');
+      panel.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      overlay.classList.remove('is-open');
+      panel.classList.remove('is-open');
+      burgerBtn.classList.remove('is-open');
+      burgerBtn.setAttribute('aria-expanded', 'false');
+      panel.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    burgerBtn.addEventListener('click', function () {
+      if (panel.classList.contains('is-open')) closeMenu(); else openMenu();
+    });
+    overlay.addEventListener('click', closeMenu);
+    closeBtn.addEventListener('click', closeMenu);
+    panel.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', closeMenu);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeMenu();
+    });
+  })();
+</script>
+
+<!-- GSAP + ScrollTrigger: бесплатные, без необходимости отдельного npm-сборщика -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+<script>
+  if (window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    var caseCards = document.querySelectorAll('.cases-list .case-card');
+    if (caseCards.length > 1) {
+      var n = caseCards.length;
+      var tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '#cases',
+          start: 'top top',
+          end: function () { return '+=' + (n - 1) * window.innerHeight * 0.7; },
+          pin: true,
+          scrub: true,
+          invalidateOnRefresh: true
+        }
+      });
+
+      caseCards.forEach(function (card, i) {
+        if (i === n - 1) return;
+        var next = caseCards[i + 1];
+        tl.fromTo(card,
+          { clipPath: 'inset(0% 0% 0% 0% round 0px)', autoAlpha: 1 },
+          { clipPath: 'inset(10% 10% 30% 10% round 0px)', autoAlpha: .2, ease: 'none' }
+        )
+        .to(next, { y: '0%', ease: 'none' }, '<')
+        .set(card, { autoAlpha: 0 });
+      });
+    }
+  }
+</script>
+
+</body>
+</html>
