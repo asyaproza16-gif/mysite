@@ -388,6 +388,113 @@
     }
 
     /* ══════════════════════════════════════
+       AI CASES — сайты, сделанные с помощью AI
+    ══════════════════════════════════════ */
+    /* Фон — светлее бежевого с фото (accent #B19B7C, смешанный с cream 50/50).
+       Серые и бежевые подписи на нём теряются, поэтому внутри блока они тёмные. */
+    #ai-cases {
+      width: 100%;
+      background: #D5C8B4;
+    }
+    #ai-cases .tool-name { color: #2B2825; }
+    #ai-cases .t-dot { background: #2B2825; }
+
+    .ai-inner {
+      padding-top:    var(--sp);
+      padding-bottom: var(--sp);
+      display: flex;
+      align-items: flex-start;
+      gap: clamp(24px, 8.9vw, 128px);
+    }
+    .ai-title-col {
+      flex: 0 0 clamp(140px, 36.3vw, 522px);
+      align-self: stretch;
+    }
+    .ai-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(22px, 2.8vw, 40px);
+      font-weight: 500;
+      letter-spacing: -.01em;
+      line-height: 1.2;
+      color: var(--dark);
+      position: sticky;
+      top: 40px;
+    }
+    .ai-right { flex: 1; min-width: 0; }
+    .ai-subtitle {
+      font-size: clamp(14px, 1.25vw, 18px);
+      line-height: 1.65;
+      color: var(--dark);
+    }
+    .ai-list {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(40px, 4.4vw, 64px);
+      margin-top: clamp(28px, 3.3vw, 48px);
+    }
+
+    .ai-case {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .ai-case-shot {
+      position: relative;
+      display: block;
+      overflow: hidden;
+      aspect-ratio: 16 / 10;
+      background: var(--dark);
+      outline: 1px solid var(--border);
+      outline-offset: -1px;
+      /* наведение — как у карточек «Кейсов»: карточка целиком, scale(1.015), но плавно */
+      transition: transform .6s cubic-bezier(.45, 0, .25, 1);
+    }
+    .ai-case-shot img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: top;
+    }
+    .ai-case-body {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .ai-case-tag {
+      position: static;
+      margin-bottom: 4px;
+    }
+    .ai-case-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(20px, 2.2vw, 28px);
+      font-weight: 500;
+      line-height: 1.2;
+      color: var(--dark);
+    }
+    .ai-case-desc {
+      font-size: clamp(14px, 1.25vw, 18px);
+      line-height: 1.6;
+      color: var(--dark);
+    }
+    .ai-case-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      width: fit-content;
+      margin-top: 4px;
+      font-size: clamp(14px, 1.25vw, 18px);
+      color: var(--dark);
+      text-decoration: none;
+      transition: opacity .2s;
+    }
+
+    @media (hover: hover) {
+      .ai-case-shot:hover { transform: scale(1.015); }
+      .ai-case-link:hover { opacity: .7; }
+    }
+
+    /* ══════════════════════════════════════
        ABOUT
     ══════════════════════════════════════ */
     #about {
@@ -802,6 +909,14 @@
 
       .tool-names .t-dot:first-child { margin-left: 0; }
 
+      /* ── AI-кейсы: стопка ── */
+      .ai-inner {
+        flex-direction: column;
+        gap: 28px;
+      }
+      .ai-title-col { flex: none; }
+      .ai-title { position: static; }
+
       /* ── Experience: стопка ── */
       .exp-inner {
         flex-direction: column;
@@ -933,6 +1048,79 @@
       <a class="case-card" href="https://www.figma.com/design/nKR6l10IgVtPt8yYeSbcep/%D0%9F%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE-%D0%B2%D0%B5%D0%B1-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80%D0%B0?node-id=160-5878&p=f&t=NGyVWDaE3eLCC593-0" target="_blank" rel="noopener"><img src="assets/casesphoto/Formatron.jpg" alt="Форматрон"><span class="case-tag"><span class="case-tag-square"></span>Многостраничный сайт</span><div class="case-card-content"><h3 class="case-card-title">Форматрон</h3><p class="case-card-desc">Корпоративный сайт литейного производства полного цикла: от 3D-оснастки до готовой детали</p></div></a>
       <a class="case-card" href="https://www.figma.com/design/nKR6l10IgVtPt8yYeSbcep/%D0%9F%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE-%D0%B2%D0%B5%D0%B1-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80%D0%B0?node-id=122-39934&p=f&t=NGyVWDaE3eLCC593-0" target="_blank" rel="noopener"><img src="assets/casesphoto/Temnote.net.jpg" alt="Темноте.нет"><span class="case-tag"><span class="case-tag-square"></span>E-commerce</span><div class="case-card-content"><h3 class="case-card-title">Темноте.нет</h3><p class="case-card-desc">Полный цикл e-commerce: каталог, карточка товара, корзина, оформление заказа, услуги</p></div></a>
       <a class="case-card" href="https://www.figma.com/design/nKR6l10IgVtPt8yYeSbcep/%D0%9F%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE-%D0%B2%D0%B5%D0%B1-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80%D0%B0?node-id=16-26650&p=f&t=NGyVWDaE3eLCC593-0" target="_blank" rel="noopener"><img src="assets/casesphoto/Unit.by.jpg" alt="UNITE.by"><span class="case-tag"><span class="case-tag-square"></span>Сайт-визитка</span><div class="case-card-content"><h3 class="case-card-title">UNITE.by</h3><p class="case-card-desc">Лаконичная и представительная визитка сайт. Минимум слов — максимум впечатления.</p></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ AI CASES ════════════════════ -->
+<section id="ai-cases">
+  <div class="container ai-inner">
+    <div class="ai-title-col">
+      <h2 class="ai-title">Кейсы, реализованные с&nbsp;помощью AI</h2>
+    </div>
+    <div class="ai-right">
+      <p class="ai-subtitle">Три лендинга, сделанные с&nbsp;помощью искусственного интеллекта от&nbsp;брифа до&nbsp;публикации: референсы, дизайн, изображения, вёрстка, адаптив и&nbsp;анимации. Компании и&nbsp;данные условные&nbsp;— это концепты для портфолио.</p>
+      <div class="ai-list">
+
+        <article class="ai-case">
+          <a class="ai-case-shot" href="https://asya74575.github.io/Stroyka-Domov/" target="_blank" rel="noopener">
+            <img src="assets/aicases/kedr-1440.webp" srcset="assets/aicases/kedr-760.webp 760w, assets/aicases/kedr-1440.webp 1440w" sizes="(max-width: 768px) 100vw, 50vw" width="1440" height="900" loading="lazy" alt="Первый экран сайта «Кедр» — строительство домов под ключ">
+          </a>
+          <div class="ai-case-body">
+            <span class="case-tag ai-case-tag"><span class="case-tag-square"></span>Лендинг · дома под ключ</span>
+            <h3 class="ai-case-title">Кедр</h3>
+            <p class="ai-case-desc">Лендинг строительной компании в&nbsp;Минске. Сайт как проектная документация дома: размерные линии и&nbsp;выноски на&nbsp;фото, разрез стены по&nbsp;слоям, калькулятор цены, срока и&nbsp;платежа по&nbsp;кредиту.</p>
+            <div class="tool-names">
+              <span class="t-dot"></span><span class="tool-name">Claude Code</span>
+              <span class="t-dot"></span><span class="tool-name">Figma</span>
+              <span class="t-dot"></span><span class="tool-name">Syntx.ai</span>
+            </div>
+            <a class="ai-case-link" href="https://asya74575.github.io/Stroyka-Domov/" target="_blank" rel="noopener">
+              Открыть сайт
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M13 2H18V7" stroke="currentColor" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 11L17 2" stroke="currentColor" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 11.067V16.267C15 16.726 14.817 17.167 14.492 17.492C14.167 17.817 13.726 18 13.267 18H3.733C3.274 18 2.833 17.817 2.508 17.492C2.183 17.167 2 16.726 2 16.267V6.733C2 6.274 2.183 5.833 2.508 5.508C2.833 5.183 3.274 5 3.733 5H8.933" stroke="currentColor" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="ai-case">
+          <a class="ai-case-shot" href="https://asya74575.github.io/Europe-Auto/" target="_blank" rel="noopener">
+            <img src="assets/aicases/westline-1440.webp" srcset="assets/aicases/westline-760.webp 760w, assets/aicases/westline-1440.webp 1440w" sizes="(max-width: 768px) 100vw, 50vw" width="1440" height="900" loading="lazy" alt="Первый экран сайта «Вестлайн» — авто из Европы под ключ">
+          </a>
+          <div class="ai-case-body">
+            <span class="case-tag ai-case-tag"><span class="case-tag-square"></span>Лендинг · авто из Европы</span>
+            <h3 class="ai-case-title">Вестлайн</h3>
+            <p class="ai-case-desc">Лендинг пригона автомобилей из&nbsp;Европы с&nbsp;подачей «драйв и&nbsp;экспертность»: тёмный кадр на&nbsp;весь экран, смена блоков колоннами при прокрутке, калькулятор с&nbsp;чеком по&nbsp;строкам.</p>
+            <div class="tool-names">
+              <span class="t-dot"></span><span class="tool-name">Claude Code</span>
+              <span class="t-dot"></span><span class="tool-name">Figma</span>
+            </div>
+            <a class="ai-case-link" href="https://asya74575.github.io/Europe-Auto/" target="_blank" rel="noopener">
+              Открыть сайт
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M13 2H18V7" stroke="currentColor" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 11L17 2" stroke="currentColor" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 11.067V16.267C15 16.726 14.817 17.167 14.492 17.492C14.167 17.817 13.726 18 13.267 18H3.733C3.274 18 2.833 17.817 2.508 17.492C2.183 17.167 2 16.726 2 16.267V6.733C2 6.274 2.183 5.833 2.508 5.508C2.833 5.183 3.274 5 3.733 5H8.933" stroke="currentColor" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="ai-case">
+          <a class="ai-case-shot" href="https://asya74575.github.io/Auto-from-China/" target="_blank" rel="noopener">
+            <img src="assets/aicases/vostok-1440.webp" srcset="assets/aicases/vostok-760.webp 760w, assets/aicases/vostok-1440.webp 1440w" sizes="(max-width: 768px) 100vw, 50vw" width="1440" height="900" loading="lazy" alt="Первый экран сайта «Восток Драйв» — авто из Китая под ключ">
+          </a>
+          <div class="ai-case-body">
+            <span class="case-tag ai-case-tag"><span class="case-tag-square"></span>3D-лендинг · авто из Китая</span>
+            <h3 class="ai-case-title">Восток Драйв</h3>
+            <p class="ai-case-desc">3D-лендинг с&nbsp;настоящей моделью машины: камера облетает её при прокрутке, кузов меняет цвет, машина едет по&nbsp;маршруту Китай&nbsp;— Минск. Калькулятор под ключ по&nbsp;строкам со&nbsp;сравнением с&nbsp;ценой дилера.</p>
+            <div class="tool-names">
+              <span class="t-dot"></span><span class="tool-name">Claude Code</span>
+              <span class="t-dot"></span><span class="tool-name">Three.js</span>
+            </div>
+            <a class="ai-case-link" href="https://asya74575.github.io/Auto-from-China/" target="_blank" rel="noopener">
+              Открыть сайт
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M13 2H18V7" stroke="currentColor" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 11L17 2" stroke="currentColor" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 11.067V16.267C15 16.726 14.817 17.167 14.492 17.492C14.167 17.817 13.726 18 13.267 18H3.733C3.274 18 2.833 17.817 2.508 17.492C2.183 17.167 2 16.726 2 16.267V6.733C2 6.274 2.183 5.833 2.508 5.508C2.833 5.183 3.274 5 3.733 5H8.933" stroke="currentColor" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+      </div>
     </div>
   </div>
 </section>
